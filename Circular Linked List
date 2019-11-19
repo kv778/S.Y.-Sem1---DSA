@@ -1,0 +1,139 @@
+#include<iostream>
+
+using namespace std;
+
+struct node
+{
+	int data;
+	struct node *next;
+};
+
+struct node *head=NULL;
+
+void create()
+{
+	struct node *nn;
+	nn=new node;
+	cout<<"Enter the data : ";
+	cin>>nn->data;
+	if(head==NULL)
+		head=nn;
+	else
+	{
+		head->next=nn;
+		nn->next=head;
+	}
+		
+}
+
+void add_begin()
+{
+	struct node *nn;
+	nn=new node;
+	cout<<"Enter the data : ";
+	cin>>nn->data;
+	nn->next=head;
+	head=nn;
+}
+
+void add_pos()
+{
+	struct node *nn,*temp,*t;
+	nn=new node;
+	temp=head;
+	int pos,i=0;
+	cout<<"Enter the data : ";
+	cin>>nn->data;
+	cout<<"Enter position : ";
+	cin>>pos;
+	while(i<pos)
+	{
+		t=temp;
+		temp=temp->next;
+		i++;
+	}
+	t->next=nn;
+	nn->next=temp;
+}
+
+void add_end()
+{
+	struct node *nn,*temp;
+	nn=new node;
+	temp=head;
+	cout<<"Enter data : ";
+	cin>>nn->data;
+	while(temp->next!=NULL)
+		temp=temp->next;
+	temp->next=nn;
+	nn->next=head;
+}
+
+void del_begin()
+{
+	struct node *temp;
+	temp=head;
+	head=head->next;
+	temp->next=NULL;
+	delete(temp);
+}
+
+void del_pos()
+{
+	struct node *temp,*t;
+	temp=head;
+	int pos,i=0;
+	cout<<"Enter position : ";
+	cin>>pos;
+	while(i<pos)
+	{
+		t=temp;
+		temp=temp->next;
+		i++;
+	}
+	t->next=temp->next;
+	temp->next=NULL;
+	delete(temp);
+}
+
+void del_end()
+{
+	struct node *temp,*t;
+	temp=head;
+	while(temp->next!=head)
+	{
+		t=temp;
+		temp=temp->next;
+	}
+	t->next=head;
+	temp->next=NULL;
+	delete(temp);
+}
+
+void display()
+{
+	struct node *temp;
+	temp=head;
+	while(temp->next!=head)
+	{
+		cout<<temp->data<<"		";
+		temp=temp->next;
+	}			
+}
+
+int main()
+{
+	cout<<endl<<"Circular Linked List : "<<endl;
+	create();
+	create();
+	add_begin();
+	add_pos();
+	add_pos();
+	add_end();
+	display();
+	del_begin();
+	del_pos();
+	del_end();
+	
+	return 0;
+}
