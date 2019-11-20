@@ -1,0 +1,84 @@
+#include<iostream>
+
+using namespace std;
+
+struct node
+{
+   int data;
+   struct node *left,*right;
+};
+
+struct node *root=NULL;
+
+node* bt()
+{
+	struct node *nn;
+	nn=new node;
+	cout<<"Enter data : ";
+	cin>>nn->data;
+	
+	if(nn->data==0)
+		return NULL;
+	return nn;
+}	
+
+void create(node *root, node *nn)
+{
+		
+		if(root==NULL)
+		{
+			root=nn;
+			root->left=NULL;
+			root->right=NULL;
+			return;
+		}
+			
+		else if(nn->data<root->data )
+		{
+			if(root->left!=NULL)
+				create(root->left,nn);
+			//cout<<"Inserted at left side of  "<<nn->data<<endl;
+			else
+				root->left=nn;	
+		}
+		else
+		{
+			if(root->right!=NULL)
+				create(root->right,nn);
+			//cout<<"Inserted at left side of  "<<nn->data<<endl;
+			else
+				root->right=nn;			
+			//cout<<"Inserted at right side of  "<<nn->data<<endl;
+			//root->right=create(nn);
+		}
+	return;
+}
+
+void inorder(node *root)
+{
+	if(root!=NULL)
+	{
+		inorder(root->left);
+		cout<<root->data<<"     ";
+		inorder(root->right);
+	}
+}
+
+
+int main()
+{
+	int ch=1;
+	while(ch!=0)
+	{
+		struct node *nn;
+			nn=bt();	
+		create(root,nn);
+		cin>>ch;
+	}
+	cout<<"Inorder traversal :    ";
+	inorder(root);
+	cout<<endl<<endl;
+
+	return 0;
+}		
+			
